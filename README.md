@@ -1,1 +1,1 @@
-In this repo located homework for STP(Stack Technology Programming)
+This repo contains homework for STP(Stack Technology Programming)
