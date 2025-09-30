@@ -1,0 +1,151 @@
+# cake = 
+# ........ 
+# ..o..... 
+# ...o.... 
+# ........
+rows = 4
+cols = 8
+total = 32
+area = 16
+
+raisin= [1,2]
+	[2,3]
+n = 2
+
+dims =  [2,8]              [1,16] NO [8,2]  NO [16,1] NO
+	[4,4]
+
+
+rr=1, cc=2
+h=2, w=8
+
+# Перебираємо всі можливі top-left так, щоб (rr,cc) всередині
+r0_min = max(0, 1 - (2 - 1)) = max(0, 0) = 0
+r0_max = min(1, 4 - 2)       = min(1, 2) = 1
+→ r0 = {0, 1}
+c0_min = max(0, 2 - (8 - 1)) = max(0, -5) = 0
+c0_max = min(2, 8 - 8)       = min(2, 0)  = 0
+→ c0 = {0, 0}
+
+# Check if there only one raisin
+[0,0,2,8] covers rows 0..1, cols 0..7
+Contains A (1,2)? yes
+Contains B (2,3)? row 2 not covered → no
+✔ VALID
+
+[1,0,2,8] covers rows 1..2, cols 0..7
+Contains A (1,2)? yes
+Contains B (2,3)? yes → two raisins
+✘ REJECT
+
+
+rr=1, cc=2
+h=4, w=4
+
+# Перебираємо всі можливі top-left так, щоб (rr,cc) всередині
+r0_min = max(0, 1 - (4 - 1)) = max(0, -2) = 0
+r0_max = min(1, 4 - 4)       = min(1, 0)  = 0
+→ r0 = {0, 0}
+c0_min = max(0, 2 - (4 - 1)) = max(0, -1) = 0
+c0_max = min(2, 8 - 4)       = min(2, 4)  = 2
+→ c0 = {0,2}
+# Check if there only one raisin
+[0,0,4,4] covers cols 0..3 → includes B (2,3) → ✘
+[0,1,4,4] covers cols 1..4 → includes B (2,3) → ✘
+[0,2,4,4] covers cols 2..5 → includes B (2,3) → ✘
+
+rr=2, cc=3
+h=2, w=8
+
+# Перебираємо всі можливі top-left так, щоб (rr,cc) всередині
+r0_min = max(0, 2 - (2 - 1)) = max(0, 1) = 1
+r0_max = min(2, 4 - 2)       = min(2, 2) = 2
+→ r0 ∈ {1, 2}
+c0_min = max(0, 3 - (8 - 1)) = max(0, -4) = 0
+c0_max = min(3, 8 - 8)       = min(3, 0)  = 0
+→ c0 = 0
+#check
+[1,0,2,8] rows 1..2, cols 0..7
+Contains A (1,2)? yes
+Contains B (2,3)? yes → two raisins → ✘
+
+[2,0,2,8] rows 2..3, cols 0..7
+  Contains A (1,2)? row 1 not covered → no
+  Contains B (2,3)? yes
+  ✔ VALID
+
+rr=2, cc=3
+h=4, w=4
+
+r0_min = max(0, 2 - (4 - 1)) = max(0, -1) = 0
+r0_max = min(2, 4 - 4)       = min(2, 0)  = 0
+→ r0 = 0
+c0_min = max(0, 3 - (4 - 1)) = max(0, 0) = 0
+c0_max = min(3, 8 - 4)       = min(3, 4) = 3
+→ c0 ∈ {0,1,2,3}
+
+#check
+[0,0,4,4] includes A (1,2) → ✘
+[0,1,4,4] includes A (1,2) → ✘
+[0,2,4,4] includes A (1,2) → ✘
+[0,3,4,4]
+  Contains B (2,3)? yes
+  Contains A (1,2)? col 2 not covered → no
+  ✔ VALID
+-----
+rects_for[[1,2]] = [
+  [0,0,2,8]
+]
+rects_for[[2,3]] = [
+  [2,0,2,8],
+  [0,3,4,4]
+]
+
+#Sort
+raisin = [(1,2), (2,3)]
+
+Для кожного кандидата:
+  1)Якщо перекривається з уже поставленими (can_place повертає false) —    пропускаємо (next).
+  2)Інакше тимчасово ставимо його: помічаємо used=true і додаємо у chosen.
+  3)Рекурсивно пробуємо обрати прямокутник для наступної родзинки.
+  4)Якщо глибше знайшлося повне рішення (res) — одразу повертаємо його   вгору (зупиняємо весь перебір).
+  5)Якщо ні — відкочуємо: знімаємо мітки used=false, прибираємо з chosen,    і пробуємо наступного кандидата.
+Якщо жоден кандидат не підійшов — повертаємо nil.
+
+For the first raisin (1,2), sort its candidates by descending width:
+Only one: [0,0,2,8] (width 8) → pick it.
+chosen =[
+AAAAAAAA
+AAoAAAAA
+...o....
+........]
+
+Now place for (2,3), try its candidates in order:
++++JUST TO SHOW WHAT HAPPENS+++
+[0,3,4,4] (rows 0..1, column 3..6)
+AAAXXXXA
+AAAXXXXA    ← ці "X" показують перекриття з A (can_place=false)
+...oXXX.
+...XXXX.
+
++++JUST TO SHOW WHAT HAPPENS+++
+[2,0,2,8] (rows 2..3)
+Overlap with first piece [0,0,2,8] (rows 0..1)? No → ✔ works.
+(We stop here; full tiling found.)
+
+#mapping
+For [2,0,2,8]:
+
+lines[2...4] → ["...o....", "........"]
+.map { |ln| ln[0...8] } → ["...o....", "........"]
+.join("\n") 
+→ "...o....\n........"
+
+pieces = [
+  "........\n..o.....",
+  "...o....\n........"
+]
+
+
+
+
