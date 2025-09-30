@@ -134,10 +134,17 @@ Overlap with first piece [0,0,2,8] (rows 0..1)? No → ✔ works.
 (We stop here; full tiling found.)
 
 #mapping
+lines = [
+  "........",
+  "..o.....",
+  "...o....",
+  "........"
+]
+
 For [2,0,2,8]:
 
-lines[2...4] → ["...o....", "........"]
-.map { |ln| ln[0...8] } → ["...o....", "........"]
+lines[2...4]
+.map { |ln| ln[0...8] }
 .join("\n") 
 → "...o....\n........"
 

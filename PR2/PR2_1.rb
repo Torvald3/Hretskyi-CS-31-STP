@@ -99,6 +99,11 @@ def cut_cake(cake_str)
     end
     rects_for[[rr, cc]] = candidates
   end
+  # rects_for=> {
+  #   [rr, cc] => [ [r0, c0, h, w], [r0, c0, h, w], ... ],
+  #   [rr, cc] => [ ... ],
+  #   ...
+  # }
 
   # sorting top-bottom, left-right
   raisins.sort!
@@ -106,6 +111,7 @@ def cut_cake(cake_str)
   used = Array.new(rows) { Array.new(cols, false) } # boolean array
   answer = []
 
+#+++++++++++++++++++++++++++++++++HELPERS++++++++++++++++++++++++++++++++++++++++
   # For first raisin prioritize width(by exercise demand), then - sort without priority
   # def sort_candidates(rects, prioritize_width: false)
   #   if prioritize_width
@@ -140,6 +146,7 @@ def cut_cake(cake_str)
     end
     true
   end
+#+++++++++++++++++++++++++++++++++HELPERS++++++++++++++++++++++++++++++++++++++++
 
   solved = false
   best_solution = nil
