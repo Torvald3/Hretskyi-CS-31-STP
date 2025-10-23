@@ -71,7 +71,7 @@ def cut_cake(cake_str)
   raisins.each do |(rr, cc)| #coordinates of raisin [r,c]
     candidates = []
     dims.each do |h, w|
-      # Перебираємо всі можливі top-left так, щоб (rr,cc) всередині
+      # Перебираємо всі можливі top-left квадратики так, щоб (rr,cc) всередині
       r0_min = [0, rr - (h - 1)].max
       r0_max = [rr, rows - h].min
       c0_min = [0, cc - (w - 1)].max
@@ -160,7 +160,7 @@ def cut_cake(cake_str)
       solved = true
       return best_solution
     end
-
+    #([[0,1],[0,3],[2,4],[4,5]])
     rr, cc = raisins[idx]
     cand = rects_for[[rr, cc]]
     return nil if cand.empty?
