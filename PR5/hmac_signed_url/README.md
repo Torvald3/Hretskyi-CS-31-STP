@@ -29,8 +29,8 @@ gem install ./hmac_signed_url-0.1.0.gem
 ruby examples/demo_server.rb
 # Перейти у браузері на http://localhost:9292
 
-## Використання
-1)У терміналі VS Code (або PowerShell) відкрити свій проєкт і набери: 
+## Використання(Альтернатива)
+1)У терміналі VS Code (або PowerShell) відкрити проєкт і набрати: 
 irb
 
 1.1) З’явиться запрошення типу:(Interactive Ruby)
