@@ -53,7 +53,6 @@ end
 
 files = []
 Find.find(ROOT) do |p|
-  next unless File.file?(p)
   begin
     files << { path: p, size: File.size(p), hash: sha256(p) }
   rescue => e
@@ -65,24 +64,38 @@ by_hash = files.group_by { |f| [f[:size], f[:hash]] }
 
 groups = by_hash.values.filter_map do |arr|
   next if arr.size < 2
-  # підтвердження побайтно відносно першого файлу
   anchor = arr.first[:path]
   size   = arr.first[:size]
-  confirmed = arr.map { |h| h[:path] }.select { |p| p == anchor || byte_equal?(anchor, p) }
+
+  paths = []
+  arr.each { |h| paths << h[:path] }
+
+  confirmed = []
+  paths.each do |p|
+    if p == anchor || byte_equal?(anchor, p)
+      confirmed << p
+    end
+  end
+
   next if confirmed.size < 2
   confirmed.sort!
+
   {
     size_bytes: size,
-    saved_if_dedup_bytes: size * (confirmed.size - 1),
     files: confirmed
   }
-end.sort_by { |g| [-g[:saved_if_dedup_bytes], g[:files].first] }
+end
 
 report = { scanned_files: files.size, groups: groups }
 File.write("duplicates.json", JSON.pretty_generate(report))
+
 puts "Scanned: #{files.size} files"
 puts "Groups:  #{groups.size}"
+groups.each_with_index do |g, i|
+  puts "Group ##{i+1} (#{g[:files].size} copies, size #{g[:size_bytes]} bytes):"
+  g[:files].each { |p| puts "  #{p}" }
+end
 puts "Wrote:   duplicates.json"
 
 
-# ruby pr3/PR3.rb "E:\testFolder"
+# ruby .\PR3\PR3.rb "E:\testFolder"

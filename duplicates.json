@@ -1,30 +1,15 @@
 {
-  "scanned_files": 76,
+  "scanned_files": 81,
   "groups": [
     {
-      "size_bytes": 8,
-      "saved_if_dedup_bytes": 64,
-      "files": [
-        "E:\\testFolder/1 - Copy (12) - Copy - Copy - Copy.txt",
-        "E:\\testFolder/1 - Copy (12) - Copy - Copy.txt",
-        "E:\\testFolder/1 - Copy (13) - Copy - Copy - Copy.txt",
-        "E:\\testFolder/1 - Copy (14) - Copy - Copy - Copy.txt",
-        "E:\\testFolder/1 - Copy (15) - Copy - Copy - Copy.txt",
-        "E:\\testFolder/1 - Copy (16) - Copy - Copy - Copy.txt",
-        "E:\\testFolder/1 - Copy (17) - Copy - Copy - Copy.txt",
-        "E:\\testFolder/1 - Copy (18) - Copy - Copy - Copy.txt",
-        "E:\\testFolder/1 - Copy (19) - Copy - Copy - Copy.txt"
-      ]
-    },
-    {
       "size_bytes": 0,
-      "saved_if_dedup_bytes": 0,
       "files": [
         "E:\\testFolder/1 - Copy (10) - Copy - Copy.txt",
         "E:\\testFolder/1 - Copy (10) - Copy.txt",
         "E:\\testFolder/1 - Copy (10).txt",
         "E:\\testFolder/1 - Copy (11) - Copy - Copy.txt",
         "E:\\testFolder/1 - Copy (11) - Copy.txt",
+        "E:\\testFolder/1 - Copy (11).txt",
         "E:\\testFolder/1 - Copy (12) - Copy.txt",
         "E:\\testFolder/1 - Copy (13) - Copy - Copy.txt",
         "E:\\testFolder/1 - Copy (13) - Copy.txt",
@@ -87,6 +72,29 @@
         "E:\\testFolder/1 - Copy - Copy.txt",
         "E:\\testFolder/1 - Copy.txt",
         "E:\\testFolder/1.txt"
+      ]
+    },
+    {
+      "size_bytes": 8,
+      "files": [
+        "E:\\testFolder/1 - Copy (12) - Copy - Copy - Copy.txt",
+        "E:\\testFolder/1 - Copy (12) - Copy - Copy.txt",
+        "E:\\testFolder/1 - Copy (13) - Copy - Copy - Copy.txt",
+        "E:\\testFolder/1 - Copy (14) - Copy - Copy - Copy.txt",
+        "E:\\testFolder/1 - Copy (15) - Copy - Copy - Copy.txt",
+        "E:\\testFolder/1 - Copy (16) - Copy - Copy - Copy.txt",
+        "E:\\testFolder/1 - Copy (17) - Copy - Copy - Copy.txt",
+        "E:\\testFolder/1 - Copy (18) - Copy - Copy - Copy.txt",
+        "E:\\testFolder/1 - Copy (19) - Copy - Copy - Copy.txt"
+      ]
+    },
+    {
+      "size_bytes": 8,
+      "files": [
+        "E:\\testFolder/aaaa - Copy (2).txt",
+        "E:\\testFolder/aaaa - Copy.txt",
+        "E:\\testFolder/aaaa.txt",
+        "E:\\testFolder/wow/aaaa.txt"
       ]
     }
   ]
