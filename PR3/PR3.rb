@@ -82,6 +82,7 @@ groups = by_hash.values.filter_map do |arr|
 
   {
     size_bytes: size,
+    saved_if_dedup_bytes: size * (confirmed.size - 1),
     files: confirmed
   }
 end
