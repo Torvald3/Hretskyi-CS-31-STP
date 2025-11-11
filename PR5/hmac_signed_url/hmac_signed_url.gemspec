@@ -23,6 +23,7 @@ s.metadata = {
 
 
 s.add_development_dependency "rspec", "~> 3.12"
+s.add_development_dependency "webrick", "~> 1.8"
 
 
 s.bindir = "bin"
