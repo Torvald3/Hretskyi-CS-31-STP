@@ -12,6 +12,7 @@ gem install ./hmac_signed_url-0.1.0.gem
 # 0) Перевірити C:\Users\PC\.local\share\gem\ruby\3.4.0\gems чи є hmac_signed_url-0.1.0, 
 # для демонстрації видали(можеш спробувати крок 4 як доказ наявності), 
 # бо require "hmac_signed_url" – підключає твій встановлений гем
+# а також видали Gemfile.lock і hmac_signed_url-0.1.0.gem
 
 # 1) Встановити залежності для розробки
 bundle install
