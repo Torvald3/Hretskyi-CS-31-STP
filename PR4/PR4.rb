@@ -34,15 +34,15 @@ module UnitConverter
     pcs: 1.0
   }
 
-  def self.same_dimension?(u1, u2)
+  def self.same_dimension?(u1, u2) #static
     [MASS, VOLUME, COUNT].any? { |set| set.include?(u1) && set.include?(u2) }
   end
 
-  def self.base_of(unit)
+  def self.base_of(unit) #static
     BASE_OF[unit] or raise ArgumentError, "Невідома одиниця: #{unit}"
   end
 
-  def self.to_base(qty, unit)
+  def self.to_base(qty, unit) #static
     base = base_of(unit)
     [qty * FACTOR_TO_BASE[unit], base]
   end
@@ -117,7 +117,7 @@ class Planner
   #   total_calories: Float,
   #   total_cost: Float
   # }
-  def self.plan(recipes, pantry, price_list)
+  def self.plan(recipes, pantry, price_list) #static
     # 1) сума потреб
     need_sum = Hash.new { |h,k| h[k] = { qty: 0.0, unit: nil } }
     recipes.each do |r|
@@ -143,11 +143,13 @@ class Planner
     total_calories ||= 0.0
 
     # 4) вартість — лише те, чого бракує
-    total_cost = per_item.sum do |name, row|
+    total_cost = 0.0
+    per_item.each do |name, row|
       price = price_list[name] || 0.0
-      row[:deficit] * price
+      item_cost = row[:deficit] * price
+      total_cost += item_cost
     end
-
+    
     { per_item: per_item, total_calories: total_calories, total_cost: total_cost }
   end
 end
@@ -203,7 +205,7 @@ prices = {
 }
 
 # Планування:
-result = Planner.plan(recipes, pantry, prices) do |what, per_item|
+result = Planner.plan(recipes, pantry, prices) do |what, per_item| #Planner рахує «потрібно/є/дефіцит» і вартість, але не знає, де взяти калорійність. Якщо потрібні калорії — даєш блок, у якому знаєш, як знайти Ingredient та його calories_per_unit. Якщо калорії не потрібні — не даєш блок, і Planner просто ставить 0.0, не падаючи з помилкою.
   if what == :calories
     per_item.sum do |name, row|
       ing = ING[name]
@@ -213,19 +215,16 @@ result = Planner.plan(recipes, pantry, prices) do |what, per_item|
 end
 
 # Вивід:
-def fmt_qty(q)
-  # безпечно показуємо цілі без знаків після коми
-  (q % 1.0).zero? ? q.to_i.to_s : ("%.2f" % q)
-end
-
 puts "План приготування: #{recipes.map(&:name).join(' + ')}"
 puts "-" * 60
 result[:per_item].each do |name, row|
   unit = row[:unit]
-  puts "#{name}: потрібно #{fmt_qty(row[:need])} #{unit} / "\
-       "є #{fmt_qty(row[:have])} #{unit} / "\
-       "дефіцит #{fmt_qty(row[:deficit])} #{unit}"
+  puts "#{name}: потрібно #{'%.2f' % row[:need]} #{unit} / " \
+       "є #{'%.2f' % row[:have]} #{unit} / " \
+       "дефіцит #{'%.2f' % row[:deficit]} #{unit}"
 end
 puts "-" * 60
 puts "total_calories: %.2f ккал" % result[:total_calories]
 puts "total_cost:     %.2f" % result[:total_cost]
+
+# ruby .\PR4\PR4.rb

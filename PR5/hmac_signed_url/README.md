@@ -45,7 +45,7 @@ signer = HmacSignedUrl::Signer.new
 puts signer.sign("https://ex.com/download?file=a.txt", ttl: 30)
 
 
-3) У відповідь IRB виведе приблизно таке:
+3) У відповідь IRB виведе:
 
 https://ex.com/download?file=a.txt&exp=1731355323&sig=F1zQ0VkR8K6r...
 

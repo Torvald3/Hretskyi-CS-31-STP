@@ -3,7 +3,7 @@
 # Запуск: ruby examples/demo_server.rb
 
 
-require "webrick"                               # міні-вебсервер без зайвих залежностей
+require "webrick"                               # міні-вебсервер
 require "hmac_signed_url"                       # підключаємо гем локально
 
 HmacSignedUrl.configure do |c|
